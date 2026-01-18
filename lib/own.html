@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="../img/book.png" type="image/x-icon">
+    <title>Create Your Own Quiz</title>
+    <style type="text/css">
+        /* Fonts & Colors */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@400;500&display=swap');
+
+        :root {
+            --primary-color: #7b5fc5; /* Purple */
+            --primary-hover: #9c7edc;
+            --input-bg: #f5f0ff;
+            --button-color: #8e63d7;
+            --button-hover: #a37edd;
+            --bg-body: linear-gradient(135deg, #f3f0fa, #e9e2f7);
+            --text-color: #2b2b2b;
+            --border-color: #d1c4e9;
+            --placeholder-color: #a78ed2;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 1em;
+            background: var(--bg-body);
+            min-height: 100vh;
+        }
+
+        #formContainer {
+            background-color: #fff;
+            padding: 35px 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 750px;
+            text-align: left;
+            font-family: 'Montserrat', sans-serif;
+            border: 2px solid var(--primary-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #formContainer::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            opacity: 0.1;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 30px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        h3 a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        h3 a:hover {
+            text-decoration: underline;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 14px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            background-color: var(--input-bg);
+            font-family: 'Roboto', sans-serif;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        /* Placeholder Styling */
+        ::placeholder {
+            color: var(--placeholder-color);
+            font-family: 'Montserrat', sans-serif;
+            font-style: italic;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 12px rgba(123, 95, 197, 0.3);
+            outline: none;
+            background-color: #f8f5ff;
+        }
+
+        input.submit {
+            cursor: pointer;
+            background: var(--button-color);
+            color: #fff;
+            font-weight: 700;
+            border: none;
+            border-radius: 12px;
+            padding: 14px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input.submit:hover {
+            background: var(--button-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(123, 95, 197, 0.3);
+        }
+
+        .download {
+            background-color: var(--button-color);
+            color: #fff;
+            border: none;
+            padding: 14px;
+            font-size: 16px;
+            margin: 6px 0;
+            cursor: pointer;
+            border-radius: 12px;
+            width: 100%;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .download:hover {
+            background-color: var(--button-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(123, 95, 197, 0.3);
+        }
+
+        .disable {
+            background-color: lightgray;
+            cursor: not-allowed;
+        }
+
+        /* AlertDialog Design */
+        .alertDialogWindow {
+            display: block;
+            position: fixed;
+            z-index: 99;
+            top: 0px;
+            left: 0px;
+            background: rgba(0,0,0,0.5);
+            width: 100%;
+            height: 100%;
+        }
+
+        .alertDialogFirstCon {
+            background: none;
+            position: fixed;
+            top: 40%;
+            left: 50%;
+            width: 90%;
+            max-width: 400px;
+            transform: translate(-50%, -50%);
+            padding: 40px;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .alertDialogCon {
+            background: #fff;
+            position: relative;
+            padding: 25px 20px;
+            border-radius: 12px;
+            box-shadow: 0 16px 24px 2px rgba(0,0,0,0.14), 0 6px 30px 5px rgba(0,0,0,0.12), 0 8px 10px -5px rgba(0,0,0,0.4);
+            animation: alertDialog 0.4s;
+        }
+
+        @keyframes alertDialog {
+            0% { top: -200%; opacity: 0.5; }
+            100% { top: 0; opacity: 1; }
+        }
+
+        .alerDialogTitle {
+            font-weight: 700;
+            color: var(--primary-color);
+            padding-bottom: 10px;
+        }
+
+        .alertDialogMessage {
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .alertDialogButtonCon button {
+            outline: none;
+            border: none;
+            background: var(--button-color);
+            color: #fff;
+            padding: 8px 16px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .alertDialogButtonCon button:hover {
+            background: var(--button-hover);
+        }
+
+        /* Small note */
+        .small-note {
+            font-size: 11px;
+            text-align: center;
+            color: #666;
+            margin-top: 10px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+<div id="formContainer">
+    <h1>CREATE YOUR PERSONAL QUIZ</h1>
+    <form action="javascript:void(0)" onsubmit="format_question_to_json()">
+        <b>Write your name:</b> <input autocomplete="off" id="poster_name" name="poster_name" value="" type="text" style="height:40px;resize:none;margin-bottom:25px;" placeholder="Write your name to indicate on the website that you are the one who made this question." maxlength="25" /><br>
+        <b>What topic question would you like to make?:</b>
+        <select id="selectCategory">
+            <option value="error">Please click here to choose the topic.</option>
+            <option value="data_00">data_00 = Reproductive System of Male and Female</option>
+            <option value="data_01">data_01 = Natural Selection and Evolution</option>
+            <option value="data_02">data_02 = Biodiversity</option>
+           
+        </select><br><br>
+        <b>Question:</b> <textarea style="height:100px" placeholder="Write the Question here" type="text" id="question" name="question"></textarea><br>
+        <b>Choice No. 1:</b><textarea placeholder="Write the Choice No. 1 here." type="text" id="choices_1" name="choices_1" /></textarea><br>
+        <b>Choice No. 2:</b><textarea placeholder="Write the Choice No. 2 here." type="text" id="choices_2" name="choices_2" /></textarea><br>
+        <b>Choice No. 3:</b><textarea placeholder="Write the Choice No. 3 here." type="text" id="choices_3" name="choices_3" /></textarea><br>
+        <b>Choice No. 4:</b><textarea placeholder="Write the Choice No. 4 here." type="text" id="choices_4" name="choices_4" /></textarea><br>
+        <b>Choice No. 5:</b><textarea placeholder="Write the Choice No. 5 here." type="text" id="choices_5" name="choices_5" /></textarea><br>
+        <b>Explanation:</b><textarea style="height:80px" placeholder="Write the explanation for the correct answer here." type="text" id="explanation" name="explanation"></textarea><br><br>
+        <b>Please select the corresponding number for the correct answer among the choices:</b><br>
+        <select id="correct_ans">
+            <option value="error">Please Click here the correct answer among the choices.</option>
+            <option value="1">Choice No. 1</option>
+            <option value="2">Choice No. 2</option>
+            <option value="3">Choice No. 3</option>
+            <option value="4">Choice No. 4</option>
+            <option value="5">Choice No. 5</option>
+        </select>
+        <br><br>
+       
+        <input class="submit" type="submit" name="" value="SAVE" />
+    </form><br>
+    <button class="download disable" disabled id="downloadQuestionnaire">CLICK HERE TO DOWNLOAD YOUR QUIZ</button><br><br>
+   
+</div>
+    
+<script type="text/javascript">
+// if dialogOpen tracking numbers
+let isDialogOpen = 0;
+
+// Global variable for tracking data question IDs
+let questionIdCounter = 0;
+
+// Global variables for question category and question data storage
+let category = "";
+let questionArray = [];
+
+/**
+ * Handles the submission of a formatted question to the questionArray.
+ * @param {Event} event - The event object for form submission.
+ */
+function format_question_to_json() {
+    // Prevents the default form submission behavior
+    event.preventDefault();
+
+    // Retrieves the category and question data from the form
+    const poster_name = document.getElementById("poster_name").value;
+    category = document.getElementById("selectCategory").value;
+    const question = document.getElementById("question").value;
+    const choices = [
+        document.getElementById("choices_1").value,
+        document.getElementById("choices_2").value,
+        document.getElementById("choices_3").value,
+        document.getElementById("choices_4").value,
+        document.getElementById("choices_5").value,
+    ];
+    const correct_ans = document.getElementById("correct_ans").value;
+    const explanation = document.getElementById("explanation").value;
+
+    if (poster_name == "") {
+        if (isDialogOpen == 0) {
+            isDialogOpen = 1;
+            // Notifies the user
+            alertDialog("<span style='color:red'>Error!</span>", "Please Write your name.");
+        }
+    }
+    else if (category == "error") {
+        if (isDialogOpen == 0) {
+            isDialogOpen = 1;
+            // Notifies the user
+            alertDialog("<span style='color:red'>Error!</span>", "Please choose the topic.");
+        }
+    }
+    else if (question == "" || question == null) {
+        // Notifies the user
+        alertDialog("<span style='color:red'>Error!</span>", "Please input your Question!");
+    }
+    else if (choices[0] == "" || choices[0] == null) {
+        // Notifies the user
+        alertDialog("<span style='color:red'>Error!</span>", "Please input your Choice No. 1!");
+    }
+    else if (choices[1] == "" || choices[1] == null) {
+        // Notifies the user
+        alertDialog("<span style='color:red'>Error!</span>", "Please input your Choice No. 2!");
+    }
+    else if (choices[2] == "" || choices[2] == null) {
+        // Notifies the user
+        alertDialog("<span style='color:red'>Error!</span>", "Please input your Choice No. 3!");
+    }
+    else if (choices[3] == "" || choices[3] == null) {
+        // Notifies the user
+        alertDialog("<span style='color:red'>Error!</span>", "Please input your Choice No. 4!");
+    }
+    else if (choices[4] == "" || choices[4] == null) {
+        // Notifies the user
+        alertDialog("<span style='color:red'>Error!</span>", "Please input your Choice No. 5!");
+    }
+    else if (correct_ans == "error") {
+        // Notifies the user
+        alertDialog("<span style='color:red'>Error!</span>", "Please choose the correct answer among the choices.");     
+    }
+   
+    else {
+        // Formats the question data and adds it to the questionArray
+        const formattedQuestion = formatQuestionData(
+            questionIdCounter++,
+            question.replace(/\n/g, '<br/>'),
+            choices,
+            choices[correct_ans - 1],
+            explanation.replace(/\n/g, '<br/>'),
+            poster_name
+        );
+        questionArray.push(formattedQuestion);
+
+        // reset all value
+        document.getElementById("question").value = "";
+        document.getElementById("choices_1").value = "";
+        document.getElementById("choices_2").value = "";
+        document.getElementById("choices_3").value = "";
+        document.getElementById("choices_4").value = "";
+        document.getElementById("choices_5").value = "";
+        document.getElementById("correct_ans").selectedIndex = 0;
+        document.getElementById("explanation").value = "";
+
+        // Get the button element by its id
+        var downloadButton = document.getElementById("downloadQuestionnaire");
+
+        // Remove the disabled attribute
+        downloadButton.removeAttribute("disabled");
+
+        // Remove the "disable" class
+        downloadButton.classList.remove("disable");
+
+        // Notifies the user that the question is saved
+        alertDialog("<span style='color:green'>Success!</span>", "The quiz you've made is successfully saved.");
+
+        // Disabling the select tag after choosing an option
+        document.getElementById('selectCategory').disabled = true;
+
+        // Disabling the name tag after choosing
+        document.getElementById('poster_name').disabled = true;
+    }
+}
+
+// Function to display an alert dialog with a custom message
+function alertDialog(dialogTitle, dialogMes) {
+    // Disabled the window scrolling of website
+    document.getElementsByTagName("body")[0].style.overflow = "hidden";
+
+    // Create a new div element
+    var newDiv = document.createElement("div");
+    // Assign an ID and class to the new div
+    newDiv.id = "alertDialogWindow";
+    newDiv.className = "alertDialogWindow";
+
+    // Set the innerHTML of the new div to create the structure of the alert dialog
+    newDiv.innerHTML = `
+        <div id="alertDialogFirstCon" class="alertDialogFirstCon">
+            <div id="alertDialogCon" class="alertDialogCon">
+                <div class="alerDialogTitleCon"><div class="alerDialogTitle">` + dialogTitle + `</div></div>
+                <div class="alertDialogMessage" id="alertDialogMessage">
+                    ` + dialogMes + `
+                </div>
+                <div class="alertDialogButtonCon">
+                    <button id="alertDialogPositiveButton">OKAY</button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    // Append the new div to the body of the document
+    document.getElementsByTagName("body")[0].appendChild(newDiv);
+
+    // Add a click event listener to the button to remove the dialog when clicked
+    document.getElementById("alertDialogPositiveButton").onclick = function() {
+        document.getElementById("alertDialogWindow").remove();
+        // Enabled the window scrolling of website
+        document.getElementsByTagName("body")[0].style.overflow = "";
+        // reset the once the user click the "OKAY" button of the dialog
+        isDialogOpen = 0;
+    }
+}
+
+/**
+ * Formats the question data into a JSON-like structure.
+ * @param {number} id - The ID of the question.
+ * @param {string} question - The text of the question.
+ * @param {string[]} choices - An array of choices for the question.
+ * @param {string} correct_ans - The correct answer among the choices.
+ * @param {string} explanation - An explanation for the correct answer.
+ * @param {string} poster_name - Name of the maker of question
+ * @returns {object} - The formatted question data.
+ */
+function formatQuestionData(id, question, choices, correct_ans, explanation, poster_name) {
+    return {
+        id: id,
+        question: question,
+        choices: choices,
+        correct_ans: correct_ans,
+        explanation: explanation,
+        poster_name: poster_name
+    };
+}
+
+/**
+ * Downloads the questionArray as a formatted text file.
+ */
+function downloadFile() {
+    // Converts the questionArray to a formatted JSON string
+    const text = JSON.stringify(questionArray, null, 2);
+
+    // Creates a variable with a dynamic name based on the category
+    const dynamicVariableName = category;
+    
+    // Constructs the string with the variable declaration
+    const variableDeclaration = `const ${dynamicVariableName} = ${text};\n`;
+
+    // Defines the filename for the downloaded file
+    const fileName = category + ".txt";
+
+    // Creates a Blob containing the variable declaration
+    const blob = new Blob([variableDeclaration], { type: "text/plain" });
+
+    // Creates a download link, sets its attributes, and triggers a click event
+    const downloadLink = document.createElement("a");
+    downloadLink.download = fileName;
+    downloadLink.href = window.URL.createObjectURL(blob);
+    downloadLink.click();
+
+    // Revokes the URL to free up resources
+    window.URL.revokeObjectURL(downloadLink.href);
+
+    // Refresh the page
+    window.location.href = window.location.href;
+}
+
+// Assigns the downloadFile function to the click event of the downloadQuestionnaire button
+document.getElementById("downloadQuestionnaire").onclick = function() {
+    downloadFile();
+};
+</script>
+
+</body>
+</html>
