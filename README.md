@@ -1,6 +1,6 @@
 # SciPlay Quiz 🎓🧪
 
-**SciPlay Qui** is a fun and interactive **science-themed quiz game** built with HTML, CSS, and JavaScript. It challenges players with questions about various science topics — perfect for learning, testing knowledge, or just having fun! 🧠✨
+**SciPlay Quiz** is a fun and interactive **science-themed quiz game** built with HTML, CSS, and JavaScript. It challenges players with questions about various science topics — perfect for learning, testing knowledge, or just having fun! 🧠✨
 
 ---
 
