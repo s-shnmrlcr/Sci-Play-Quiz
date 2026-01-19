@@ -1,224 +1,278 @@
 <!-- 
-    Author: Shaine Marie Q. Lucero
-    Date: Jan 12, 2026, 10:08 PM -->
+  Author: Shaine Marie Q. Lucero
+  Date: Jan 12, 2026, 10:08 PM -->
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="img/logo.png?v=1">
-    <link rel="shortcut icon" href="img/logo.png?v=1">
-    <link rel="stylesheet" type="text/css" href="lib/index.css" />
-    <title>Sci-Play</title>
-  </head>
-  <body>
-    <nav>
-      <div class="nav-header">
-        <h5 style="margin-bottom: 4px">Sci-Play Quiz</h5>
-        <button onclick="createExam()" class="create_exam_md ripple-btn">
-            <div class="list_icon">
-              <svg  
-                width="20"
-                height="20"
-                viewBox="0 0 35 35"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              > 
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M20 30L20 16L16 20L16 30L20 30Z"
-                  fill="#9b59b6"
-                ></path>
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M20 20L30 20L30 16L20 16L20 20Z"
-                  fill="#9b59b6"
-                ></path>
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M16 20L20 16L15.937 16L6 16L6 20L16 20Z"
-                  fill="#9b59b6"
-                ></path>
-                <rect
-                  x="20"
-                  y="16"
-                  width="4"
-                  height="10"
-                  transform="rotate(-180 20 16)"
-                  fill="#9b59b6"
-                ></rect> 
-              </svg>
-            </div> 
-            <div class="description">Start Exam</div> 
-          </button>
-      </div>
-      <div class="nav-main">
-        <!-- GENERAL KNOWLEDGE -->
-        <h3>
-          <span class="icon-container">
-            <!-- Example SVG Icon -->
-            <svg
-              style="margin: -1px 0 0 0"
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="img/logo.png?v=1">
+  <link rel="shortcut icon" href="img/logo.png?v=1">
+  <link rel="stylesheet" type="text/css" href="lib/index.css" />
+  <title>Sci-Play</title>
+</head>
+<body>
+  <div class="nav-backdrop" id="navBackdrop"></div>
+  <nav id="mainNav">
+    <div class="nav-header">
+      <h5 style="margin-bottom: 4px">Sci-Play Quiz</h5>
+      <button onclick="createExam()" class="create_exam_md ripple-btn">
+          <div class="list_icon">
+            <svg  
+              width="20"
+              height="20"
+              viewBox="0 0 35 35"
+              fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 -960 960 960"
-            >
+            > 
               <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M20 30L20 16L16 20L16 30L20 30Z"
                 fill="#9b59b6"
-                d="M560-564v-68q33-14 67.5-21t72.5-7q26 0 51 4t49 10v64q-24-9-48.5-13.5T700-600q-38 0-73 9.5T560-564Zm0 220v-68q33-14 67.5-21t72.5-7q26 0 51 4t49 10v64q-24-9-48.5-13.5T700-380q-38 0-73 9t-67 27Zm0-110v-68q33-14 67.5-21t72.5-7q26 0 51 4t49 10v64q-24-9-48.5-13.5T700-490q-38 0-73 9.5T560-454ZM260-320q47 0 91.5 10.5T440-278v-394q-41-24-87-36t-93-12q-36 0-71.5 7T120-692v396q35-12 69.5-18t70.5-6Zm260 42q44-21 88.5-31.5T700-320q36 0 70.5 6t69.5 18v-396q-33-14-68.5-21t-71.5-7q-47 0-93 12t-87 36v394Zm-40 118q-48-38-104-59t-116-21q-42 0-82.5 11T100-198q-21 11-40.5-1T40-234v-482q0-11 5.5-21T62-752q46-24 96-36t102-12q58 0 113.5 15T480-740q51-30 106.5-45T700-800q52 0 102 12t96 36q11 5 16.5 15t5.5 21v482q0 23-19.5 35t-40.5 1q-37-20-77.5-31T700-240q-60 0-116 21t-104 59ZM280-494Z"
-              />
+              ></path>
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M20 20L30 20L30 16L20 16L20 20Z"
+                fill="#9b59b6"
+              ></path>
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M16 20L20 16L15.937 16L6 16L6 20L16 20Z"
+                fill="#9b59b6"
+              ></path>
+              <rect
+                x="20"
+                y="16"
+                width="4"
+                height="10"
+                transform="rotate(-180 20 16)"
+                fill="#9b59b6"
+              ></rect> 
             </svg>
-          </span>
-          <span style="color: #9b59b6">ALL ABOUT SCIENCE</span>
-        </h3>
-        <ul>
-          <li>
-            <button onclick="selectedQuiz(0)" class="ripple-btn quiz-button">
-              <span class="quiz-icon-container">
-                <svg
-                  style="margin: -1px 5px -3px 0"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 -960 960 960"
-                >
-                  <path
-                    d="M200-120v-640q0-33 23.5-56.5T280-840h400q33 0 56.5 23.5T760-760v640L480-240 200-120Zm80-122 200-86 200 86v-518H280v518Zm0-518h400-400Z"
-                  />
-                </svg>
-              </span>
-              Reproductive System of Male & Female
-            </button>
-          </li>
-          <li>
-            <button onclick="selectedQuiz(1)" class="ripple-btn quiz-button">
-              <span class="quiz-icon-container">
-                <svg
-                  style="margin: -1px 5px -3px 0"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 -960 960 960"
-                >
-                  <path
-                    d="M200-120v-640q0-33 23.5-56.5T280-840h400q33 0 56.5 23.5T760-760v640L480-240 200-120Zm80-122 200-86 200 86v-518H280v518Zm0-518h400-400Z"
-                  />
-                </svg>
-              </span>
-              Natural Selection and Evolution
-            </button>
-          </li>
-          <li>
-            <button onclick="selectedQuiz(2)" class="ripple-btn quiz-button">
-              <span class="quiz-icon-container">
-                <svg
-                  style="margin: -1px 5px -3px 0"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 -960 960 960"
-                >
-                  <path
-                    d="M200-120v-640q0-33 23.5-56.5T280-840h400q33 0 56.5 23.5T760-760v640L480-240 200-120Zm80-122 200-86 200 86v-518H280v518Zm0-518h400-400Z"
-                  />
-                </svg>
-              </span>
-              Biodiversity
-            </button>
-          </li>
-        </ul>
-        </ul>
-      </div>
-      <div class="nav-footer"></div>
-    </nav>
+          </div> 
+          <div class="description">Start Exam</div> 
+        </button>
+    </div>
+    <div class="nav-main">
+      <!-- GENERAL KNOWLEDGE -->
+      <h3>
+        <span class="icon-container">
+          <!-- Example SVG Icon -->
+          <svg
+            style="margin: -1px 0 0 0"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 -960 960 960"
+          >
+            <path
+              fill="#9b59b6"
+              d="M560-564v-68q33-14 67.5-21t72.5-7q26 0 51 4t49 10v64q-24-9-48.5-13.5T700-600q-38 0-73 9.5T560-564Zm0 220v-68q33-14 67.5-21t72.5-7q26 0 51 4t49 10v64q-24-9-48.5-13.5T700-380q-38 0-73 9t-67 27Zm0-110v-68q33-14 67.5-21t72.5-7q26 0 51 4t49 10v64q-24-9-48.5-13.5T700-490q-38 0-73 9.5T560-454ZM260-320q47 0 91.5 10.5T440-278v-394q-41-24-87-36t-93-12q-36 0-71.5 7T120-692v396q35-12 69.5-18t70.5-6Zm260 42q44-21 88.5-31.5T700-320q36 0 70.5 6t69.5 18v-396q-33-14-68.5-21t-71.5-7q-47 0-93 12t-87 36v394Zm-40 118q-48-38-104-59t-116-21q-42 0-82.5 11T100-198q-21 11-40.5-1T40-234v-482q0-11 5.5-21T62-752q46-24 96-36t102-12q58 0 113.5 15T480-740q51-30 106.5-45T700-800q52 0 102 12t96 36q11 5 16.5 15t5.5 21v482q0 23-19.5 35t-40.5 1q-37-20-77.5-31T700-240q-60 0-116 21t-104 59ZM280-494Z"
+            />
+          </svg>
+        </span>
+        <span style="color: #9b59b6">ALL ABOUT SCIENCE</span>
+      </h3>
+      <ul>
+        <li>
+          <button onclick="selectedQuiz(0)" class="ripple-btn quiz-button">
+            <span class="quiz-icon-container">
+              <svg
+                style="margin: -1px 5px -3px 0"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 -960 960 960"
+              >
+                <path
+                  d="M200-120v-640q0-33 23.5-56.5T280-840h400q33 0 56.5 23.5T760-760v640L480-240 200-120Zm80-122 200-86 200 86v-518H280v518Zm0-518h400-400Z"
+                />
+              </svg>
+            </span>
+            Reproductive System of Male & Female
+          </button>
+        </li>
+        <li>
+          <button onclick="selectedQuiz(1)" class="ripple-btn quiz-button">
+            <span class="quiz-icon-container">
+              <svg
+                style="margin: -1px 5px -3px 0"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 -960 960 960"
+              >
+                <path
+                  d="M200-120v-640q0-33 23.5-56.5T280-840h400q33 0 56.5 23.5T760-760v640L480-240 200-120Zm80-122 200-86 200 86v-518H280v518Zm0-518h400-400Z"
+                />
+              </svg>
+            </span>
+            Natural Selection and Evolution
+          </button>
+        </li>
+        <li>
+          <button onclick="selectedQuiz(2)" class="ripple-btn quiz-button">
+            <span class="quiz-icon-container">
+              <svg
+                style="margin: -1px 5px -3px 0"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 -960 960 960"
+              >
+                <path
+                  d="M200-120v-640q0-33 23.5-56.5T280-840h400q33 0 56.5 23.5T760-760v640L480-240 200-120Zm80-122 200-86 200 86v-518H280v518Zm0-518h400-400Z"
+                />
+              </svg>
+            </span>
+            Biodiversity
+          </button>
+        </li>
+      </ul>
+      </ul>
+    </div>
+    <div class="nav-footer"></div>
+  </nav>
 
 
-    <div class="content">
-      <div class="content-header">
+  <div class="content">
+    <div class="content-header">
 
-        <button
-        title="Logout"
-        onclick="logoutUser()"
+      <button title="Menu" onclick="toggleMobileMenu()" class="ripple-btn mobile-menu-toggle">
+        <span class="icon-container-header">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z" />
+          </svg>
+        </span>
+      </button>
+
+      <button
+      title="Logout"
+      onclick="logoutUser()"
+      class="ripple-btn"
+      id="logoutButton"
+    >
+      <span class="icon-container-header">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+          <path
+            d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 160 160-160 160Z"
+          />
+        </svg>
+      </span>
+    </button>
+    
+      <button
+        title="Scoreboard"
+        onclick="openScoreboard()"
         class="ripple-btn"
-        id="logoutButton"
       >
         <span class="icon-container-header">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
             <path
-              d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 160 160-160 160Z"
+              d="M320-280q17 0 28.5-11.5T360-320q0-17-11.5-28.5T320-360q-17 0-28.5 11.5T280-320q0 17 11.5 28.5T320-280Zm0-160q17 0 28.5-11.5T360-480q0-17-11.5-28.5T320-520q-17 0-28.5 11.5T280-480q0 17 11.5 28.5T320-440Zm0-160q17 0 28.5-11.5T360-640q0-17-11.5-28.5T320-680q-17 0-28.5 11.5T280-640q0 17 11.5 28.5T320-600Zm120 320h240v-80H440v80Zm0-160h240v-80H440v80Zm0-160h240v-80H440v80ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"
             />
           </svg>
         </span>
       </button>
-      
-        <button
-          title="Scoreboard"
-          onclick="openScoreboard()"
-          class="ripple-btn"
-        >
-          <span class="icon-container-header">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-              <path
-                d="M320-280q17 0 28.5-11.5T360-320q0-17-11.5-28.5T320-360q-17 0-28.5 11.5T280-320q0 17 11.5 28.5T320-280Zm0-160q17 0 28.5-11.5T360-480q0-17-11.5-28.5T320-520q-17 0-28.5 11.5T280-480q0 17 11.5 28.5T320-440Zm0-160q17 0 28.5-11.5T360-640q0-17-11.5-28.5T320-680q-17 0-28.5 11.5T280-640q0 17 11.5 28.5T320-600Zm120 320h240v-80H440v80Zm0-160h240v-80H440v80Zm0-160h240v-80H440v80ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"
-              />
-            </svg>
-          </span>
-        </button>
-        <button
-          title="More Options"
-          onclick="openMenuModal()"
-          class="ripple-btn"
-        >
-          <span class="icon-container-header">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path d="M0 0h24v24H0z" fill="none"></path>
-              <path
-                d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
-              ></path>
-            </svg>
-          </span>
-        </button>
+      <button
+        title="More Options"
+        onclick="openMenuModal()"
+        class="ripple-btn"
+      >
+        <span class="icon-container-header">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none"></path>
+            <path
+              d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+            ></path>
+          </svg>
+        </span>
+      </button>
 
-      </div>
-      <div class="content-main">
-        <h2>A Message from the SciPlay Researchers</h2>
-        <p>Hello and Welcome!</p>
-        <p>
-          This Sci-Play quiz website was created with the purpose of helping
-          Grade 10 learners review and strengthen their understanding of key
-          lessons in a fun and interactive way. All quiz questions included here
-          were carefully selected from publicly accessible educational sources.
-        </p>
-        <p>
-          This website is intended solely for educational use. Proper
-          acknowledgment has been given to original authors and sources to
-          ensure transparency and respect for their work.
-        </p>
-        <p>
-          If you believe any content requires correction, proper attribution, or
-          removal, or if you have ideas that can help improve this learning
-          tool, your input is very much appreciated.
-        </p>
-        <p>
-          You may also contribute by sharing your own educational questions
-          through email, and selected submissions may be featured on the site.
-        </p>
-        <p>Thank you for supporting responsible and accessible learning.</p>
-        <p>Martinez, Samulde, Napao, Sermida</p>
-        <p>RESEARCHERS</p>
-      </div>
-      <div class="content-footer"></div>
     </div>
+    <div class="content-main">
+      <h2>A Message from the SciPlay Researchers</h2>
+      <p>Hello and Welcome!</p>
+      <p>
+        This Sci-Play quiz website was created with the purpose of helping
+        Grade 10 learners review and strengthen their understanding of key
+        lessons in a fun and interactive way. All quiz questions included here
+        were carefully selected from publicly accessible educational sources.
+      </p>
+      <p>
+        This website is intended solely for educational use. Proper
+        acknowledgment has been given to original authors and sources to
+        ensure transparency and respect for their work.
+      </p>
+      <p>
+        If you believe any content requires correction, proper attribution, or
+        removal, or if you have ideas that can help improve this learning
+        tool, your input is very much appreciated.
+      </p>
+      <p>
+        You may also contribute by sharing your own educational questions
+        through email, and selected submissions may be featured on the site.
+      </p>
+      <p>Thank you for supporting responsible and accessible learning.</p>
+      <p>Martinez, Samulde, Napao, Sermida</p>
+      <p>RESEARCHERS</p>
+    </div>
+    <div class="content-footer"></div>
+  </div>
 
-    <script type="text/javascript" src="lib/jquery.min.js"></script>
-    <script type="text/javascript" src="lib/config.js"></script>
-    <script type="text/javascript" src="lib/global_variables.js"></script>
-    <script type="text/javascript" src="lib/global_functions.js"></script>
+  <script type="text/javascript" src="lib/jquery.min.js"></script>
+  <script type="text/javascript" src="lib/config.js"></script>
+  <script type="text/javascript" src="lib/global_variables.js"></script>
+  <script type="text/javascript" src="lib/global_functions.js"></script>
 
-    <!-- data set of questions, options, answers and explanations -->
-    <script type="text/javascript" src="lib/data/data_00.js"></script>
-    <script type="text/javascript" src="lib/data/data_01.js"></script>
-    <script type="text/javascript" src="lib/data/data_02.js"></script>
+  <!-- data set of questions, options, answers and explanations -->
+  <script type="text/javascript" src="lib/data/data_00.js"></script>
+  <script type="text/javascript" src="lib/data/data_01.js"></script>
+  <script type="text/javascript" src="lib/data/data_02.js"></script>
 
-    <!-- Initialize quiz and exam -->
-    <script type="text/javascript" src="lib/init_quiz.js"></script>
-    <script type="text/javascript" src="lib/init_exam.js"></script>
-  </body>
+  <!-- Initialize quiz and exam -->
+  <script type="text/javascript" src="lib/init_quiz.js"></script>
+  <script type="text/javascript" src="lib/init_exam.js"></script>
+<
+  <script>
+    function toggleMobileMenu() {
+      const nav = document.getElementById('mainNav');
+      const backdrop = document.getElementById('navBackdrop');
+      
+      if (!nav || !backdrop) {
+        console.log("[v0] Error: nav or backdrop not found");
+        return;
+      }
+    
+      const isVisible = nav.classList.contains('show-nav');
+      console.log("[v0] Menu toggle clicked. Currently visible:", isVisible);
+    
+      if (isVisible) {
+        nav.classList.remove('show-nav');
+        backdrop.classList.remove('show');
+        console.log("[v0] Menu hidden");
+      } else {
+        nav.classList.add('show-nav');
+        backdrop.classList.add('show');
+        console.log("[v0] Menu shown");
+      }
+    }
+    // Close menu when a link is clicked
+  document.addEventListener('DOMContentLoaded', function () {
+    // Close menu when a link is clicked
+    const navLinks = document.querySelectorAll('nav .nav-main button, nav .create_exam_md');
+    navLinks.forEach(link => {
+      link.addEventListener('click', function () {
+        const nav = document.getElementById('mainNav');
+        const backdrop = document.getElementById('navBackdrop');
+        if (nav) nav.classList.remove('show-nav');
+        if (backdrop) backdrop.classList.remove('show');
+      });
+    });
+  
+    // Close menu when backdrop is clicked
+    const backdrop = document.getElementById('navBackdrop');
+    if (backdrop) {
+      backdrop.addEventListener('click', toggleMobileMenu);
+    }
+  });
+    </script>
+
+</body>
 </html>
